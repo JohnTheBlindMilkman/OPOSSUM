@@ -1,0 +1,1 @@
+add_library(base SHARED Particle.cxx EventCut.cxx TrackCut.cxx PairCut.cxx)
