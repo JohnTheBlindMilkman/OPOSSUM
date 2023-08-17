@@ -3,11 +3,21 @@
 
     #include "TrackCandidate.h"
 
-    class EventCandidate : public TrackCandidate
+    #include "ROOT/RVec.hxx"
+
+    class EventCandidate
     {
         public:
             EventCandidate();
             ~EventCandidate();
+            
+            ROOT::VecOps::RVec<TrackCandidate> GetAcceptedTracks();
+            ROOT::VecOps::RVec<TrackCandidate> GetRejectedTracks();
+
+        private:
+            float fB; // in fm
+            int fNParticipants;
+            float fReactionPlaneAngle; // in rad
     };
 
 #endif
