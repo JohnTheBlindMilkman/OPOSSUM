@@ -1,1 +1,1 @@
-add_library(utils SHARED ProgressBar.cxx)
+add_library(Utils SHARED ProgressBar.cxx)

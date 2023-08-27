@@ -1,1 +1,0 @@
-add_library(cuts SHARED EventCut.cxx TrackCut.cxx PairCut.cxx)

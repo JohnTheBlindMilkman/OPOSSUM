@@ -1,5 +1,4 @@
 add_subdirectory(base)
-add_subdirectory(cuts)
 add_subdirectory(readers)
 #add_subdirectory(femto)
 add_subdirectory(selection)

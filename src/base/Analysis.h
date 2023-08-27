@@ -2,13 +2,13 @@
     #define Analysis_h
 
     #include "Result.h"
-    #include "../readers/Reader.h"
+    #include "../readers/UnigenReader.h"
     #include "../selection/ParticleSelector.h"
 
     template <typename T> class Analysis
     {
         public:
-            Analysis(Reader read, ParticleSelector seelctor);
+            Analysis(UnigenReader read, ParticleSelector seelctor);
             ~Analysis();
 
             Result DoAnalysis();

@@ -5,7 +5,7 @@
     {
         public:
             PairCut();
-            virtual ~PairCut();
+            virtual ~PairCut() = default;
     };
 
 #endif

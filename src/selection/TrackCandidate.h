@@ -5,7 +5,11 @@
     {
         public:
             TrackCandidate();
-            ~TrackCandidate();
+            virtual ~TrackCandidate() = default;
+
+        private:
+            int fPid, fMotherPid;
+            float fMomX, fMomY, fMomZ, fEne, fPosX, fPosY, fPosZ, fRap, fMomT, fBeta, fMass;
     };
 
 #endif
