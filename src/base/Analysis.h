@@ -9,11 +9,14 @@
     {
         public:
             Analysis(UnigenReader read, ParticleSelector seelctor);
-            ~Analysis();
+            virtual ~Analysis() = default;
 
             Result DoAnalysis();
 
         private:
+            void Init();
+            void Next();
+            void Finish();
             T fAnalysis;
             Result res;
     };
