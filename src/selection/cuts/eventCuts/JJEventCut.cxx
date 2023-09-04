@@ -2,7 +2,6 @@
 
 JJEventCut::JJEventCut()
 {
-    std::cout << "JJEventCut created" << std::endl;
 }
 
 JJEventCut::~JJEventCut()

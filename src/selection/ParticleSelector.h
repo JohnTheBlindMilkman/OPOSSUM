@@ -9,32 +9,24 @@
     #include "cuts/EventCut.h"
     #include "cuts/PairCut.h"
     #include "cuts/TrackCut.h"
-    #include "../base/Particle.h"
 
     class ParticleSelector
     {
         public:
-            ParticleSelector();
+            ParticleSelector(const EventCut &evtCut, const TrackCut &trckCut, const PairCut &prCut);
             ~ParticleSelector();
 
             void PerformSelection(EventCandidate &evtCand);
-            void AddCut(TrackCut cut);
-            void AddCut(EventCut cut);
-            void AddCut(PairCut cut);
 
         private:
-            bool SelectEvent(EventCandidate &evtCand, const std::vector<EventCut> &evtCutList) const;
-            bool SelectTracks(EventCandidate &evtCand, const std::vector<TrackCut> &trackCutList) const;
+            bool SelectEvent(EventCandidate &evtCand, const EventCut &evtCut) const;
+            bool SelectTracks(EventCandidate &evtCand, const TrackCut &trackCut) const;
 
             TString fParticleName;
             EventCandidate fEventCand;
-            std::vector<TrackCut> fTrackCutVec;
-            std::vector<EventCut> fEventCutVec;
-            std::vector<PairCut> fPairCutVec;
+            EventCut fEventCut;
+            TrackCut fTrackCut;
+            PairCut fPairCut;
     };
-
-    inline void ParticleSelector::AddCut(TrackCut cut) {fTrackCutVec.push_back(cut);};
-    inline void ParticleSelector::AddCut(EventCut cut) {fEventCutVec.push_back(cut);};
-    inline void ParticleSelector::AddCut(PairCut cut) {fPairCutVec.push_back(cut);};
 
 #endif

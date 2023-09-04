@@ -2,16 +2,12 @@
 
 #include "cuts/eventCuts/JJEventCut.h"
 #include "cuts/trackCuts/JJTrackCut.h"
+#include "cuts/pairCuts/JJPairCut.h"
 #include "ParticleSelector.h"
 
 int main(int argc, char *argv[])
 {
-    JJEventCut evtCut = JJEventCut();
-    JJTrackCut trckCut = JJTrackCut();
-
-    ParticleSelector selector = ParticleSelector();
-    selector.AddCut(evtCut);
-    selector.AddCut(trckCut);
+    ParticleSelector selector = ParticleSelector(JJEventCut(),JJTrackCut(),JJPairCut());
 
     EventCandidate evtCand = EventCandidate();
 

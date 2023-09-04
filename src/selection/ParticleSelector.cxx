@@ -1,8 +1,7 @@
 #include "ParticleSelector.h"
 
-ParticleSelector::ParticleSelector()
+ParticleSelector::ParticleSelector(const EventCut &evtCut, const TrackCut &trckCut, const PairCut &prCut) : fEventCut(evtCut), fTrackCut(trckCut), fPairCut(prCut)
 {
-    std::cout << "ParticleSelector created" << std::endl;
 }
 
 ParticleSelector::~ParticleSelector()
@@ -11,25 +10,23 @@ ParticleSelector::~ParticleSelector()
 
 void ParticleSelector::PerformSelection(EventCandidate &evtCand)
 {
-    if (this->SelectEvent(evtCand,fEventCutVec))
-        if (this->SelectTracks(evtCand,fTrackCutVec))
+    if (this->SelectEvent(evtCand,fEventCut))
+        if (this->SelectTracks(evtCand,fTrackCut))
             evtCand.SetGoodEvent(true);
 
-    std::cout << "ParticleSelector has performed the selection" << std::endl;
 }
 
-bool ParticleSelector::SelectEvent(EventCandidate &evtCand, const std::vector<EventCut> &evtCutList) const
+bool ParticleSelector::SelectEvent(EventCandidate &evtCand, const EventCut &evtCut) const
 {
-    for (auto &cut : evtCutList)
-        if (cut.IsRejected(evtCand))
-        {
-            evtCand.SetGoodEvent(false);
-            return false;
-        }
+    if (evtCut.IsRejected(evtCand))
+    {
+        evtCand.SetGoodEvent(false);
+        return false;
+    }
 
     return true;
 }
-bool ParticleSelector::SelectTracks(EventCandidate &evtCand, const std::vector<TrackCut> &trackCutList) const
+bool ParticleSelector::SelectTracks(EventCandidate &evtCand, const TrackCut &trackCut) const
 {
-    return evtCand.SelectTracks(trackCutList);
+    return evtCand.SelectTracks(trackCut);
 }

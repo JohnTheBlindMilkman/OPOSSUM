@@ -5,14 +5,11 @@
     #include "../selection/TrackCandidate.h"
 
     // adapter for UParticle class
-    class UnigenParticleCandidate : TrackCandidate
+    class UnigenParticleCandidate : public TrackCandidate
     {
         public:
             UnigenParticleCandidate(UParticle *particle);
             ~UnigenParticleCandidate();
-
-        private:
-            UParticle *fParticle;
     };
 
 #endif

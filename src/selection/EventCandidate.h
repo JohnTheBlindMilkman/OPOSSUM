@@ -14,22 +14,25 @@
             EventCandidate();
             virtual ~EventCandidate() = default;
             
+            void AddTrack(TrackCandidate cand);
             bool IsGoodEvent();
             void SetGoodEvent(bool good);
-            bool SelectTracks(const std::vector<TrackCut> &trackCutList);
+            bool SelectTracks(const TrackCut &trackCut);
             ROOT::VecOps::RVec<TrackCandidate> GetAcceptedTracks();
             ROOT::VecOps::RVec<TrackCandidate> GetRejectedTracks();
 
 
-        private:
+        protected:
             bool fIsGoodEvent; // default = true
             float fB; // in fm
-            int fNParticipants;
             float fReactionPlaneAngle; // in rad
+
+        private:
             ROOT::VecOps::RVec<TrackCandidate> fAllTracks, fGoodTracks, fBadTracks;
 
     };
 
+    inline void EventCandidate::AddTrack(TrackCandidate cand) {fAllTracks.push_back(cand);};
     inline bool EventCandidate::IsGoodEvent() {return fIsGoodEvent;};
     inline void EventCandidate::SetGoodEvent(bool good) {fIsGoodEvent = good;};
     inline ROOT::VecOps::RVec<TrackCandidate> EventCandidate::GetAcceptedTracks() {return fGoodTracks;};

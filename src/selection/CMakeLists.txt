@@ -11,6 +11,7 @@ cuts/TrackCut.h
 cuts/PairCut.h
 cuts/trackCuts/JJTrackCut.h
 cuts/eventCuts/JJEventCut.h
+cuts/pairCuts/JJPairCut.h
 )
 
 set(SOURCES
@@ -22,13 +23,14 @@ cuts/TrackCut.cxx
 cuts/PairCut.cxx
 cuts/trackCuts/JJTrackCut.cxx
 cuts/eventCuts/JJEventCut.cxx
+cuts/pairCuts/JJPairCut.cxx
 )
 
 root_generate_dictionary(ParticleSelector_Dict  ${INCLUDES} LINKDEF ParticleSelectorLinkDef.h)
 
 add_library(Selection SHARED ${SOURCES} ParticleSelector_Dict.cxx)
 target_include_directories(Selection PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(Selection PUBLIC Base ROOT::Core ROOT::ROOTVecOps)
+target_link_libraries(Selection PUBLIC ROOT::Core ROOT::ROOTVecOps)
 
 add_executable(select_events select_events.cxx)
 target_link_libraries(select_events PRIVATE Selection)

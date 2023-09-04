@@ -29,18 +29,16 @@ void UnigenReader::InitReader()
     fFileChain = ReadFiles(fInpDirPath,fNumberOfFiles);
     fEntries = fFileChain->GetEntries();
     fFileChain->SetBranchAddress("event",&fUniEvent);
-
-    std::cout << "UnigenReader initialised" << std::endl;
 }
 
 bool UnigenReader::GetNextEvent(UnigenEventCandidate &evtCand)
 {
-    std::cout << "UnigenReader reading entry no " << fCurrentEntry << std::endl;
     if (fCurrentEntry == fEntries)
         return false;
 
     fFileChain->GetEntry(fCurrentEntry);
     evtCand = UnigenEventCandidate(fUniEvent);
+    
     ++fCurrentEntry;
 
     return true;
@@ -48,5 +46,4 @@ bool UnigenReader::GetNextEvent(UnigenEventCandidate &evtCand)
 
 void UnigenReader::CloseReader()
 {
-    std::cout << "UnigenReader closed" << std::endl;
 }
