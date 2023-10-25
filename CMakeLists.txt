@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(HEPAL VERSION 0.1.0)
+project(OPOSSUM VERSION 0.1.0)
 
 find_package(ROOT 6.26 CONFIG REQUIRED)
 

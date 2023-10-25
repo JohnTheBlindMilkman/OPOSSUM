@@ -6,7 +6,6 @@ UnigenReader::UnigenReader(const TString &inpDirPath, const TString &treeName, c
     fInpFileNameBase = "unigen";
     fEntries = 0;
     fCurrentEntry = 0;
-    std::cout << "UnigenReader created" << std::endl;
 }
 
 UnigenReader::~UnigenReader()
