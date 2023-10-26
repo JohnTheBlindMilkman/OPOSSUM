@@ -1,0 +1,7 @@
+OUTPUT_DIRECTORY       = @CMAKE_CURRENT_BINARY_DIR@/doc_doxygen/
+INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/src/ @CMAKE_CURRENT_SOURCE_DIR@/docs
+RECURSIVE              = YES
+EXCLUDE                = @CMAKE_CURRENT_SOURCE_DIR@/src/utils/json.hpp
+PROJECT_NAME           = "OPOSSUM - Object Programming Oriented Sub-Standard Utility Multitool"
+GENERATE_LATEX         = NO
+PROJECT_LOGO           = @CMAKE_CURRENT_SOURCE_DIR@/docs/oposik_kawusia.png

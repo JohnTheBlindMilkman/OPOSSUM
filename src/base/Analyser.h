@@ -1,7 +1,7 @@
 /**
  * @file Analyser.h
  * @author Jedrzej Kolas (jedrzej.kolas.dokt@pw.edu.pl)
- * @brief 
+ * @brief Main object of the whole program, performs the whole analysis.
  * @version 0.1
  * @date 2023-10-12
  * 
@@ -42,8 +42,22 @@
             Result DoAnalysis(int threads = 1);
 
         private:
+            /**
+             * @brief Initialise necessary objects and variables. Is evoked only once per program.
+             * 
+             */
             void Init();
+            /**
+             * @brief Is evoked every event. Returns false if there are no more events to analyse and true otherwise.
+             * 
+             * @return true 
+             * @return false 
+             */
             bool Next();
+            /**
+             * @brief Close necessary readers and writers. Save output. Is evoked only once per program.
+             * 
+             */
             void Finish();
 
             UnigenReader fReader;

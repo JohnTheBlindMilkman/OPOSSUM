@@ -1,3 +1,13 @@
+/**
+ * @file Particle.h
+ * @author Jędrzej Kołaś (jedrzej.kolas.dokt@pw.edu.pl)
+ * @brief Depricated class - to be modified or removed.
+ * @version 0.1
+ * @date 2023-10-26
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
 #ifndef particle_h
     #define particle_h
 
