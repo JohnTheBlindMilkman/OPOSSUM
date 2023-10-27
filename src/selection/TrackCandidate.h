@@ -12,6 +12,10 @@
 #ifndef TrackCandidate_h
     #define TrackCandidate_h
 
+    #include <unordered_map>
+
+    #include "ObservableList.h"
+
     #include "Math/LorentzVector.h"
 
     class TrackCandidate
@@ -54,6 +58,7 @@
             ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<float> > GetPosition() const;
 
         protected:
+            std::unordered_map<TrackObservable,ObservableType> fObservables;
             ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<float> > fMom4Vec;
             ROOT::Math::LorentzVector<ROOT::Math::PxPyPzE4D<float> > fPos4Vec;
             long int fPid, fParentPid;

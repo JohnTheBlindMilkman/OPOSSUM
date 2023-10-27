@@ -75,6 +75,7 @@
 
 
         protected:
+            std::unordered_map<EventObservable,ObservableType> fObservables;
             bool fIsGoodEvent; // default = true
             float fB; // in fm
             float fReactionPlaneAngle; // in rad
