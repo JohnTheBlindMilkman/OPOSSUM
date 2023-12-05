@@ -15,7 +15,9 @@
     #include "Result.h"
     #include "../selection/EventCandidate.h"
 
-    class Analysis
+    namespace Opossum
+    {
+        class Analysis
     {
         public:
             /**
@@ -37,5 +39,6 @@
              */
             Result PerformAnalysis(const EventCandidate &evtCand);
     };
+    } // namespace Opossum
 
 #endif

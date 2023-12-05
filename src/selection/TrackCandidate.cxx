@@ -1,5 +1,9 @@
 #include "TrackCandidate.h"
 
-TrackCandidate::TrackCandidate()
+namespace Opossum
 {
-}
+    TrackCandidate::TrackCandidate()
+    {
+    }
+} // namespace Opossum
+

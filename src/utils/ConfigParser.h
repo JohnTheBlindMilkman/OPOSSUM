@@ -12,56 +12,87 @@
 #ifndef ConfigParser_h
     #define ConfigParser_h
 
-    #include <map>
-    #include "TString.h"
+    #include <unordered_map>
+    #include <fstream>
+    #include <iostream>
+    #include "CutParser.h"
     #include "json.hpp"
 
-    class ConfigParser
+    namespace Opossum
     {
-        public:
-            /**
-             * @brief Construct a new Config Parser object
-             * 
-             */
-            ConfigParser();
-            /**
-             * @brief Construct a new Config Parser object and initialise the lookup table of cuts. Read the config .json file.
-             * 
-             * @param configFile .json configuration file
-             */
-            ConfigParser(TString configFile);
-            /**
-             * @brief Destroy the Config Parser object
-             * 
-             */
-            ~ConfigParser();
+        struct ParticleSelectorInfo
+        {
+            std::optional<std::unordered_map<EventObservable,CutEntry> > eventCutSet;
+            std::optional<std::unordered_map<TrackObservable,CutEntry> > trackCutSet;
+            std::optional<std::unordered_map<PairObservable,CutEntry> > pairCutSet;
+        };
 
-            /**
-             * @brief Read the selection.json file and check its contens.
-             * 
-             * @return true - file exists;
-             * @return false - otherwise
-             */
-            bool ReadSelection() const;
+        struct GenericReaderInfo
+        {
+            std::string eventDirPath;
+            std::string eventKey;
+            uint filesToLoad;
+            std::string selectionFilePath;
+        };
+        
+        void from_json(const nlohmann::json &j, GenericReaderInfo &g);
+        
+        class ConfigParser
+        {
+            public:
+                /**
+                 * @brief Construct a new Config Parser object
+                 * 
+                 */
+                ConfigParser();
+                /**
+                 * @brief Construct a new Config Parser object and initialise the lookup table of cuts. Read the config .json file.
+                 * 
+                 * @param configFile .json configuration file
+                 */
+                ConfigParser(std::string configFile);
+                /**
+                 * @brief Destroy the Config Parser object
+                 * 
+                 */
+                ~ConfigParser();
+                /**
+                 * @brief Getter for cut maps for ParticleSelector class
+                 * 
+                 * @return ParticleSelectorInfo 
+                 */
+                ParticleSelectorInfo PassSelectionInformation() const;
+                /**
+                 * @brief Getter for parameters to GenericReader
+                 * 
+                 * @return GenericReaderInfo 
+                 */
+                GenericReaderInfo PassGenericReaderInformation() const;
+                
+            private:
+                /**
+                 * @brief Read the selection.json file and check its contens.
+                 * 
+                 * @return true - file exists;
+                 * @return false - otherwise
+                 */
+                bool ReadSelection();
+                void InitCutLists();
 
-            /**
-             * @brief Read the cutMapping.json file.
-             * 
-             * @return true - file exists;
-             * @return false - otherwise
-             */
-            bool ReadCutMapping() const;
-            
-        private:
-            /**
-             * @brief Print to the standard output the cuts of selection.json file which did are not known
-             * 
-             */
-            void PrintUnknownParameters() const;
+                CutParser fCutParser;
+                ParticleSelectorInfo fPSInfo;
+                GenericReaderInfo fGRInfo;
+                std::ifstream fSelectionFile, fConfigFile;
+                nlohmann::json fJSONselection;
+                std::array<const std::string,3> fCutTypeName;
+                std::unordered_map<EventObservable,CutEntry> fEventCutList;
+                std::unordered_map<TrackObservable,CutEntry> fTrackCutList;
+                std::unordered_map<PairObservable,CutEntry> fPairCutList;
+        };
 
-            nlohmann::json fJSONfile;
-    };
-    
+        inline ParticleSelectorInfo ConfigParser::PassSelectionInformation() const {return fPSInfo;}
+        inline GenericReaderInfo ConfigParser::PassGenericReaderInformation() const {return fGRInfo;}
+    }    
 
 
 #endif

@@ -16,30 +16,33 @@
     #include "UEvent.h"
     #include "UnigenParticleCandidate.h"
 
-    // adapter for UEvent class
-    class UnigenEventCandidate : public EventCandidate
+    namespace Opossum
     {
-        public:
-            /**
-             * @brief Construct a new Unigen Event Candidate object
-             * 
-             */
-            UnigenEventCandidate() = default;
-            /**
-             * @brief Construct a new Unigen Event Candidate object
-             * 
-             * @param event 
-             */
-            UnigenEventCandidate(UEvent *event);
-            /**
-             * @brief Destroy the Unigen Event Candidate object
-             * 
-             */
-            ~UnigenEventCandidate();
+        // adapter for UEvent class
+        class UnigenEventCandidate : public EventCandidate
+        {
+            public:
+                /**
+                 * @brief Construct a new Unigen Event Candidate object
+                 * 
+                 */
+                UnigenEventCandidate() = default;
+                /**
+                 * @brief Construct a new Unigen Event Candidate object
+                 * 
+                 * @param event 
+                 */
+                UnigenEventCandidate(UEvent *event);
+                /**
+                 * @brief Destroy the Unigen Event Candidate object
+                 * 
+                 */
+                ~UnigenEventCandidate();
 
-        private:
-            UEvent *fEvent;
+            private:
+                UEvent *fEvent;
 
-    };
+        };
+    }
 
 #endif

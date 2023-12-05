@@ -1,32 +1,40 @@
 #include "ParticleSelector.h"
 
-ParticleSelector::ParticleSelector(const EventCut &evtCut, const TrackCut &trckCut, const PairCut &prCut) : fEventCut(evtCut), fTrackCut(trckCut), fPairCut(prCut)
+namespace Opossum
 {
-}
-
-ParticleSelector::~ParticleSelector()
-{
-}
-
-void ParticleSelector::PerformSelection(EventCandidate &evtCand)
-{
-    if (this->SelectEvent(evtCand,fEventCut))
-        if (this->SelectTracks(evtCand,fTrackCut))
-            evtCand.SetGoodEvent(true);
-
-}
-
-bool ParticleSelector::SelectEvent(EventCandidate &evtCand, const EventCut &evtCut) const
-{
-    if (evtCut.IsRejected(evtCand))
+    ParticleSelector::ParticleSelector(const ParticleSelectorInfo &psInfo) : fPSInfo(psInfo)
     {
-        evtCand.SetGoodEvent(false);
-        return false;
     }
 
-    return true;
-}
-bool ParticleSelector::SelectTracks(EventCandidate &evtCand, const TrackCut &trackCut) const
-{
-    return evtCand.SelectTracks(trackCut);
+    ParticleSelector::~ParticleSelector()
+    {
+    }
+
+    void ParticleSelector::PerformSelection(EventCandidate &evtCand)
+    {
+        if (this->SelectEvent(evtCand,fPSInfo))
+            if (this->SelectTracks(evtCand,fPSInfo))
+                evtCand.SetGoodEvent(true);
+
+    }
+
+    bool ParticleSelector::SelectEvent(EventCandidate &evtCand, const ParticleSelectorInfo &psInfo) const
+    {
+        if (psInfo.eventCutSet)
+        {
+            if (!evtCand.Select(psInfo.eventCutSet.value()))
+            {
+                evtCand.SetGoodEvent(false);
+                return false;
+            }
+        }
+        return true;
+    }
+    bool ParticleSelector::SelectTracks(EventCandidate &evtCand, const ParticleSelectorInfo &psInfo) const
+    {
+        if (psInfo.trackCutSet)
+            return evtCand.SelectTracks(psInfo.trackCutSet.value());
+            
+        return true;
+    }
 }

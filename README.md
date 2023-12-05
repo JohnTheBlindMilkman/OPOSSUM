@@ -24,6 +24,7 @@ The OPOSSUM ౿ᓕ ̤Ꜥ·⦣ has been build using:
 The code includes the following repositories: 
 - [JSON for Modern C++](https://github.com/nlohmann/json)
 - [Activity Indicators for Modern C++](https://github.com/p-ranav/indicators)
+- [Argument Parser for Modern C++ ](https://github.com/p-ranav/argparse)
 
 ## Setup
 
@@ -34,6 +35,10 @@ $ cd build
 $ cmake ../.
 $ make
 ```
+The program, by default, does not build the doxygen documentation. If you wish to enable it, add flag to the `cmake` command when building the project:
+```
+$ cmake ../. -DBUILD_DOC=ON
+``` 
 
 ## Usage
 

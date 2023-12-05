@@ -1,0 +1,17 @@
+{
+    "trackCut":
+    [
+        {
+            "tag":"PID",
+            "more_than":null,
+            "equal":2212,
+            "less_than":null
+        },
+        {
+            "tag":"Px",
+            "more_than":0.0,
+            "equal":null,
+            "less_than":2.5
+        }
+    ]
+}

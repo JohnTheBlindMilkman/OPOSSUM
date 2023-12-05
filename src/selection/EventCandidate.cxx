@@ -1,28 +1,24 @@
 #include "EventCandidate.h"
 
-EventCandidate::EventCandidate()
+namespace Opossum
 {
-}
-
-bool EventCandidate::SelectTracks(const TrackCut &trackCut)
-{
-    bool isGood = true;
-    for (auto &track : fAllTracks)
+    EventCandidate::EventCandidate()
     {
-        isGood = true;
-        if (trackCut.IsRejected(track))
-        {
-            isGood = false;
-            fBadTracks.push_back(track);
-            break;
-        }
-
-        if (isGood)
-            fGoodTracks.push_back(track);
     }
 
-    if (fGoodTracks.size())
-        return true;
-    else
-        return false;
-}
+    bool EventCandidate::SelectTracks(const std::unordered_map<TrackObservable,CutEntry> &trackCut)
+    {
+        for (auto &track : fAllTracks)
+        {
+            if (track.Select(trackCut))
+                fGoodTracks.push_back(track);
+            else
+                fBadTracks.push_back(track);
+        }
+
+        if (fGoodTracks.size())
+            return true;
+        else
+            return false;
+    }
+} // namespace Opossum

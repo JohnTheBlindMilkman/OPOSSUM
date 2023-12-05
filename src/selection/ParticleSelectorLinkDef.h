@@ -7,14 +7,13 @@
 
 #ifdef __MAKECINT__
 
-#pragma link C++ class ParticleSelector + ;
-#pragma link C++ class EventCandidate + ;
-#pragma link C++ class TrackCandidate + ;
-#pragma link C++ class TrackCut + ;
-#pragma link C++ class EventCut + ;
-#pragma link C++ class PairCut + ;
-#pragma link C++ class JJTrackCut + ;
-#pragma link C++ class JJEventCut + ;
+#pragma link C++ namespace Opossum;
+#pragma link C++ class Opossum::ParticleSelector + ;
+#pragma link C++ class Opossum::EventCandidate + ;
+#pragma link C++ class Opossum::TrackCandidate + ;
+#pragma link C++ class Opossum::GenericCandidate < Opossum::TrackObservable> + ;
+#pragma link C++ class Opossum::GenericCandidate < Opossum::EventObservable> + ;
+#pragma link C++ class Opossum::GenericCandidate < Opossum::PairObservable> + ;
 
 #endif
 #endif

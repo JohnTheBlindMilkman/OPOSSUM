@@ -1,13 +1,13 @@
 #include <iostream>
 
-#include "cuts/eventCuts/JJEventCut.h"
-#include "cuts/trackCuts/JJTrackCut.h"
-#include "cuts/pairCuts/JJPairCut.h"
 #include "ParticleSelector.h"
 
-int main(int argc, char *argv[])
+using namespace Opossum;
+
+int main(/* int argc, char *argv[] */)
 {
-    ParticleSelector selector = ParticleSelector(JJEventCut(),JJTrackCut(),JJPairCut());
+    ConfigParser parser("/home/jedkol/Downloads/OPOSSUM/config.json");
+    ParticleSelector selector = ParticleSelector(parser.PassSelectionInformation());
 
     EventCandidate evtCand = EventCandidate();
 

@@ -18,54 +18,57 @@
     #include "../selection/ParticleSelector.h"
     #include "../readers/UnigenEventCandidate.h"
 
-    class Analyser
+    namespace Opossum
     {
-        public:
-            /**
-             * @brief Construct a new Analyser object
-             * 
-             * @param analysis Any analysis object, e.g. FemtoAnalysis or SpectraAnalysis
-             * @param selector Particle selector object
-             * @param inpDirPath Path to the inpud directory storing input .root files
-             * @param treeName The name of the TTree inside input .root files
-             * @param nFiles Number of input .root files to be analysed
-             */
-            Analyser(const Analysis analysis, const ParticleSelector &selector, const TString &inpDirPath, const TString &treeName, const int &nFiles);
-            virtual ~Analyser() = default;
+        class Analyser
+        {
+            public:
+                /**
+                 * @brief Construct a new Analyser object
+                 * 
+                 * @param analysis Any analysis object, e.g. FemtoAnalysis or SpectraAnalysis
+                 * @param selector Particle selector object
+                 * @param inpDirPath Path to the inpud directory storing input .root files
+                 * @param treeName The name of the TTree inside input .root files
+                 * @param nFiles Number of input .root files to be analysed
+                 */
+                Analyser(const Analysis analysis, const ParticleSelector &selector, const TString &inpDirPath, const TString &treeName, const int &nFiles);
+                virtual ~Analyser() = default;
 
-            /**
-             * @brief Perform the chosen analysis process (defined by the constructor parameters)
-             * 
-             * @param threads number of threads to be used in parallelisation of the analysis (1 means no parallelisation, >1 is parallelised on given amount of threads), currently not implemented
-             * @return Result 
-             */
-            Result DoAnalysis(int threads = 1);
+                /**
+                 * @brief Perform the chosen analysis process (defined by the constructor parameters)
+                 * 
+                 * @param threads number of threads to be used in parallelisation of the analysis (1 means no parallelisation, >1 is parallelised on given amount of threads), currently not implemented
+                 * @return Result 
+                 */
+                Result DoAnalysis(int threads = 1);
 
-        private:
-            /**
-             * @brief Initialise necessary objects and variables. Is evoked only once per program.
-             * 
-             */
-            void Init();
-            /**
-             * @brief Is evoked every event. Returns false if there are no more events to analyse and true otherwise.
-             * 
-             * @return true 
-             * @return false 
-             */
-            bool Next();
-            /**
-             * @brief Close necessary readers and writers. Save output. Is evoked only once per program.
-             * 
-             */
-            void Finish();
+            private:
+                /**
+                 * @brief Initialise necessary objects and variables. Is evoked only once per program.
+                 * 
+                 */
+                void Init();
+                /**
+                 * @brief Is evoked every event. Returns false if there are no more events to analyse and true otherwise.
+                 * 
+                 * @return true 
+                 * @return false 
+                 */
+                bool Next();
+                /**
+                 * @brief Close necessary readers and writers. Save output. Is evoked only once per program.
+                 * 
+                 */
+                void Finish();
 
-            UnigenReader fReader;
-            ParticleSelector fSelector;
-            UnigenEventCandidate fEvtCand;
-            Analysis fAnalysis;
-            Result fResult;
-            bool fDoNext;
-    };
+                UnigenReader fReader;
+                ParticleSelector fSelector;
+                UnigenEventCandidate fEvtCand;
+                Analysis fAnalysis;
+                Result fResult;
+                bool fDoNext;
+        };
+    }
 
 #endif

@@ -7,9 +7,10 @@
 
 #ifdef __MAKECINT__
 
-#pragma link C++ class UnigenReader + ;
-#pragma link C++ class UnigenEventCandidate + ;
-#pragma link C++ class UnigenParticleCandidate + ;
+#pragma link C++ namespace Opossum;
+#pragma link C++ class Opossum::UnigenReader + ;
+#pragma link C++ class Opossum::UnigenEventCandidate + ;
+#pragma link C++ class Opossum::UnigenParticleCandidate + ;
 #pragma link C++ class UEvent + ;
 #pragma link C++ class UParticle + ;
 

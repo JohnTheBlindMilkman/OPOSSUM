@@ -1,16 +1,19 @@
 #include "UnigenEventCandidate.h"
 
-UnigenEventCandidate::UnigenEventCandidate(UEvent *event)
+namespace Opossum
 {
-    this->fB = event->GetB();
-    this->fReactionPlaneAngle = event->GetPhi();
-    for (int iter = 0; iter < event->GetNpa(); iter++)
+    UnigenEventCandidate::UnigenEventCandidate(UEvent *event)
     {
-        AddTrack(UnigenParticleCandidate(event->GetParticle(iter)));
+        this->fObservables[EventObservable::ImpactParameter] = static_cast<float>(event->GetB());
+        this->fObservables[EventObservable::ReactionPlaneAngle] = static_cast<float>(event->GetPhi());
+        for (int iter = 0; iter < event->GetNpa(); iter++)
+        {
+            AddTrack(UnigenParticleCandidate(event->GetParticle(iter)));
+        }
     }
-}
 
-UnigenEventCandidate::~UnigenEventCandidate()
-{
-    
+    UnigenEventCandidate::~UnigenEventCandidate()
+    {
+        
+    }
 }

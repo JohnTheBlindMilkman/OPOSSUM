@@ -15,80 +15,73 @@
     #include <iostream>
 
     #include "TrackCandidate.h"
-    #include "cuts/TrackCut.h"
 
-    #include "ROOT/RVec.hxx"
-
-    class EventCandidate
+    namespace Opossum
     {
-        public:
-            /**
-             * @brief Construct a new Event Candidate object
-             * 
-             */
-            EventCandidate();
-            /**
-             * @brief Destroy the Event Candidate object
-             * 
-             */
-            virtual ~EventCandidate() = default;
-            
-            /**
-             * @brief Add track candidate to the event.
-             * 
-             * @param cand 
-             */
-            void AddTrack(TrackCandidate cand);
-            /**
-             * @brief Check if event has been accepted by the selection criteria, stored in the selection.json file.
-             * 
-             * @return true 
-             * @return false 
-             */
-            bool IsGoodEvent();
-            /**
-             * @brief Set the Good Event flag of this event.
-             * 
-             * @param good 
-             */
-            void SetGoodEvent(bool good);
-            /**
-             * @brief Perform track selection on all tracks, which are assigned to the event. Returns true if any track has passed the selection criteria, and false otherwise.
-             * 
-             * @param trackCut 
-             * @return true 
-             * @return false 
-             */
-            bool SelectTracks(const TrackCut &trackCut);
-            /**
-             * @brief Get the list of accepted tracks
-             * 
-             * @return ROOT::VecOps::RVec<TrackCandidate> 
-             */
-            ROOT::VecOps::RVec<TrackCandidate> GetAcceptedTracks();
-            /**
-             * @brief Get the list of rejected tracks
-             * 
-             * @return ROOT::VecOps::RVec<TrackCandidate> 
-             */
-            ROOT::VecOps::RVec<TrackCandidate> GetRejectedTracks();
+        class EventCandidate : public GenericCandidate<EventObservable>
+        {
+            public:
+                /**
+                 * @brief Construct a new Event Candidate object
+                 * 
+                 */
+                EventCandidate();
+                /**
+                 * @brief Destroy the Event Candidate object
+                 * 
+                 */
+                ~EventCandidate() = default;
+                /**
+                 * @brief Add track candidate to the event.
+                 * 
+                 * @param cand 
+                 */
+                void AddTrack(TrackCandidate cand);
+                /**
+                 * @brief Check if event has been accepted by the selection criteria, stored in the selection.json file.
+                 * 
+                 * @return true 
+                 * @return false 
+                 */
+                bool IsGoodEvent() const;
+                /**
+                 * @brief Set the Good Event flag of this event.
+                 * 
+                 * @param good 
+                 */
+                void SetGoodEvent(bool good);
+                /**
+                 * @brief Perform track selection on all tracks, which are assigned to the event. Returns true if any track has passed the selection criteria, and false otherwise.
+                 * 
+                 * @param trackCut 
+                 * @return true 
+                 * @return false 
+                 */
+                bool SelectTracks(const std::unordered_map<TrackObservable,CutEntry> &trackCut);
+                /**
+                 * @brief Get the list of accepted tracks
+                 * 
+                 * @return std::vector<TrackCandidate> 
+                 */
+                std::vector<TrackCandidate> GetAcceptedTracks() const;
+                /**
+                 * @brief Get the list of rejected tracks
+                 * 
+                 * @return std::vector<TrackCandidate> 
+                 */
+                std::vector<TrackCandidate> GetRejectedTracks() const;
 
+            private:
+                bool fIsGoodEvent; // default = true
+                std::vector<TrackCandidate> fAllTracks, fGoodTracks, fBadTracks;
 
-        protected:
-            std::unordered_map<EventObservable,ObservableType> fObservables;
-            bool fIsGoodEvent; // default = true
-            float fB; // in fm
-            float fReactionPlaneAngle; // in rad
+        };
 
-        private:
-            ROOT::VecOps::RVec<TrackCandidate> fAllTracks, fGoodTracks, fBadTracks;
-
-    };
-
-    inline void EventCandidate::AddTrack(TrackCandidate cand) {fAllTracks.push_back(cand);}
-    inline bool EventCandidate::IsGoodEvent() {return fIsGoodEvent;}
-    inline void EventCandidate::SetGoodEvent(bool good) {fIsGoodEvent = good;}
-    inline ROOT::VecOps::RVec<TrackCandidate> EventCandidate::GetAcceptedTracks() {return fGoodTracks;}
-    inline ROOT::VecOps::RVec<TrackCandidate> EventCandidate::GetRejectedTracks() {return fBadTracks;}
+        inline void EventCandidate::AddTrack(TrackCandidate cand) {fAllTracks.push_back(cand);}
+        inline bool EventCandidate::IsGoodEvent() const {return fIsGoodEvent;}
+        inline void EventCandidate::SetGoodEvent(bool good) {fIsGoodEvent = good;}
+        inline std::vector<TrackCandidate> EventCandidate::GetAcceptedTracks() const {return fGoodTracks;}
+        inline std::vector<TrackCandidate> EventCandidate::GetRejectedTracks() const {return fBadTracks;}
+    }
 
 #endif

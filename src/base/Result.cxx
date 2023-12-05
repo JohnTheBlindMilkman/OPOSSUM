@@ -1,6 +1,9 @@
 #include "Result.h"
 
-Result::Result()
+namespace Opossum
 {
-    
+    Result::Result()
+    {
+        
+    }
 }

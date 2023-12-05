@@ -13,20 +13,23 @@
 
     #include "TString.h"
 
-    class Particle
+    namespace Opossum
     {
-        public:
-            Particle();
-            ~Particle();
+        class Particle
+        {
+            public:
+                Particle();
+                ~Particle();
 
-            TString GetName() const;
+                TString GetName() const;
 
-        private:
-            TString fName;
-            int fPid;
-            double fMass;
-    };
+            private:
+                TString fName;
+                int fPid;
+                double fMass;
+        };
 
-    inline TString Particle::GetName() const {return fName;};
+        inline TString Particle::GetName() const {return fName;};
+    }
 
 #endif

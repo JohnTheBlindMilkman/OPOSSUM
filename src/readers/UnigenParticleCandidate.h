@@ -14,21 +14,24 @@
     #include "UParticle.h"
     #include "../selection/TrackCandidate.h"
 
-    // adapter for UParticle class
-    class UnigenParticleCandidate : public TrackCandidate
+    namespace Opossum
     {
-        public:
-            /**
-             * @brief Construct a new Unigen Particle Candidate object
-             * 
-             * @param particle 
-             */
-            UnigenParticleCandidate(UParticle *particle);
-            /**
-             * @brief Destroy the Unigen Particle Candidate object
-             * 
-             */
-            ~UnigenParticleCandidate();
-    };
+        // adapter for UParticle class
+        class UnigenParticleCandidate : public TrackCandidate
+        {
+            public:
+                /**
+                 * @brief Construct a new Unigen Particle Candidate object
+                 * 
+                 * @param particle 
+                 */
+                UnigenParticleCandidate(UParticle *particle);
+                /**
+                 * @brief Destroy the Unigen Particle Candidate object
+                 * 
+                 */
+                ~UnigenParticleCandidate();
+        };
+    }
 
 #endif
