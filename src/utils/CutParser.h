@@ -1,7 +1,7 @@
 /**
  * @file CutParser.h
  * @author Jędrzej Kołaś (jedrzej.kolas.dokt@pw.edu.pl)
- * @brief 
+ * @brief Parser for selection.json cut setting file
  * @version 0.1
  * @date 2023-11-19
  * 

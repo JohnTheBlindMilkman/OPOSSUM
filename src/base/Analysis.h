@@ -18,27 +18,27 @@
     namespace Opossum
     {
         class Analysis
-    {
-        public:
-            /**
-             * @brief Construct a new Analysis object
-             * 
-             */
-            Analysis();
-            /**
-             * @brief Destroy the Analysis object
-             * 
-             */
-            virtual ~Analysis() = default;
+        {
+            public:
+                /**
+                 * @brief Construct a new Analysis object
+                 * 
+                 */
+                Analysis();
+                /**
+                 * @brief Destroy the Analysis object
+                 * 
+                 */
+                virtual ~Analysis() = default;
 
-            /**
-             * @brief Perform analysis on the EventCandidate object. Override this method in your own implementation of the Analysis class.
-             * 
-             * @param evtCand 
-             * @return Result 
-             */
-            Result PerformAnalysis(const EventCandidate &evtCand);
-    };
+                /**
+                 * @brief Perform analysis on the EventCandidate object. Override this method in your own implementation of the Analysis class.
+                 * 
+                 * @param evtCand 
+                 * @return Result 
+                 */
+                Result PerformAnalysis(const EventCandidate &evtCand);
+        };
     } // namespace Opossum
 
 #endif

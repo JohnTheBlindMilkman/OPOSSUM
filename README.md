@@ -36,9 +36,12 @@ $ cmake ../.
 $ make
 ```
 The program, by default, does not build the doxygen documentation. If you wish to enable it, add flag to the `cmake` command when building the project:
+
 ```
 $ cmake ../. -DBUILD_DOC=ON
 ``` 
+
+**_Note:_**  In order to be able to generate documentation, make sure you have Doxygen and Graphviz installed.
 
 ## Usage
 
@@ -54,7 +57,6 @@ To use the OPOSSUM ౿ᓕ ̤Ꜥ·⦣ in your own ways, I have prepared shared 
 - Add other analysis types
 - Create writers
 - Add the option to work in converter mode
-- Add input files in .json format
 - Add install folder with all .so and .h files
 - Add thread safety
 - Add documentation

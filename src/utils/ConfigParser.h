@@ -1,7 +1,7 @@
 /**
  * @file ConfigParser.h
  * @author Jędrzej Kołaś (jedrzej.kolas.dokt@pw.edu.pl)
- * @brief 
+ * @brief Main class for parsing the .json settings files
  * @version 0.1
  * @date 2023-10-26
  * 

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(OPOSSUM VERSION 0.3.0)
+project(OPOSSUM VERSION 0.3.1)
 
 option(BUILD_DOC "Build documentation" OFF)
 
@@ -9,8 +9,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic")
 
-# check if Doxygen is installed
 if (BUILD_DOC)
+    # check if Doxygen is installed
     find_package(Doxygen)
     if (DOXYGEN_FOUND)
         # set input and output files
