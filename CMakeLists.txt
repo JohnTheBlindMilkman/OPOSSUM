@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(OPOSSUM VERSION 0.3.1)
+project(OPOSSUM VERSION 0.3.2)
 
 option(BUILD_DOC "Build documentation" OFF)
 
@@ -7,7 +7,7 @@ find_package(ROOT 6.26 CONFIG REQUIRED)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic -O3")
 
 if (BUILD_DOC)
     # check if Doxygen is installed

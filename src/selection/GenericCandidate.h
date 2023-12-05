@@ -64,7 +64,7 @@
                     {
                         if (cut.second.more_than && cut.second.less_than)
                         {
-                            if ((fObservables[cut.first] < cut.second.more_than.value()) || (fObservables[cut.first] < cut.second.less_than.value()))
+                            if ((fObservables[cut.first] < cut.second.more_than.value()) || (fObservables[cut.first] > cut.second.less_than.value()))
                                 return false;
                         }
                         else if (cut.second.equal)
