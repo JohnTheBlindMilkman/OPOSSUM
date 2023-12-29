@@ -25,11 +25,13 @@ namespace Opossum
         return chain;
     }
 
-    void UnigenReader::InitReader()
+    std::size_t UnigenReader::InitReader()
     {
         fFileChain = ReadFiles(fInpDirPath,fNumberOfFiles);
         fEntries = fFileChain->GetEntries();
         fFileChain->SetBranchAddress("event",&fUniEvent);
+
+        return static_cast<std::size_t>(fEntries);
     }
 
     bool UnigenReader::GetNextEvent(UnigenEventCandidate &evtCand)

@@ -68,17 +68,17 @@ namespace Opossum
     void ConfigParser::InitCutLists()
     {
         if (fJSONselection.contains(fCutTypeName.at(0)))
-            fPSInfo.eventCutSet = fCutParser.ConvertFromJson<EventObservable>(fJSONselection.at(fCutTypeName.at(0)));
+            fPSInfo.eventCutSet = fCutParser.ConvertFromJson<EventObservable>(fJSONselection.at(fCutTypeName.at(0)),fCutTypeName.at(0));
         else
             fPSInfo.eventCutSet = std::nullopt;
 
         if (fJSONselection.contains(fCutTypeName.at(1)))
-            fPSInfo.trackCutSet = fCutParser.ConvertFromJson<TrackObservable>(fJSONselection.at(fCutTypeName.at(1)));
+            fPSInfo.trackCutSet = fCutParser.ConvertFromJson<TrackObservable>(fJSONselection.at(fCutTypeName.at(1)),fCutTypeName.at(1));
         else
             fPSInfo.trackCutSet = std::nullopt;
 
         if (fJSONselection.contains(fCutTypeName.at(2)))
-            fPSInfo.pairCutSet = fCutParser.ConvertFromJson<PairObservable>(fJSONselection.at(fCutTypeName.at(2)));
+            fPSInfo.pairCutSet = fCutParser.ConvertFromJson<PairObservable>(fJSONselection.at(fCutTypeName.at(2)),fCutTypeName.at(2));
         else
             fPSInfo.pairCutSet = std::nullopt;
     }

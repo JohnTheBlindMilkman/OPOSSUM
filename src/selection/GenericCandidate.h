@@ -52,6 +52,14 @@
                  */
                 virtual ~GenericCandidate() = default;
                 /**
+                 * @brief Operator for accessing elements from the fObservable map
+                 * 
+                 * @param key value of the corresponding enum (TrackObservable, EventObservable or PairObservable)
+                 * @return std::variant<long int, float> 
+                 * @exception std::out_of_range If no such data
+                 */
+                std::variant<long int, float> operator[](const EnumType &key) const {return fObservables.at(key);}
+                /**
                  * @brief Perform relation operation on passed map and the observable map
                  * 
                  * @tparam EnumType 

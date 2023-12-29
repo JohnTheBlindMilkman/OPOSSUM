@@ -14,8 +14,14 @@ namespace Opossum
     bool Analyser::Next()
     {
         fDoNext = fReader.GetNextEvent(fEvtCand);
-        fSelector.PerformSelection(fEvtCand);
-        fAnalysis.PerformAnalysis(fEvtCand);
+        if (fDoNext)
+        {
+            fSelector.PerformSelection(fEvtCand);
+            fAnalysis.PerformAnalysis(fEvtCand);  // how do I select pairs? add pair vec to the fEvtCand? pass fSelector to fAnalysis?
+            // fAnalysis.PerformAnalyis(fEvtCand) with forwarded fSelector
+            // if all we're gonna do is the analysis, there is no point in doin the selection separately
+            // particle selection is a part of every      
+        }
 
         return fDoNext;
     }
@@ -25,7 +31,7 @@ namespace Opossum
         fReader.CloseReader();
     }
 
-    Result Analyser::DoAnalysis(int threads)
+    GenericResult Analyser::DoAnalysis(int threads)
     {
         this->Init();
         while (this->Next());

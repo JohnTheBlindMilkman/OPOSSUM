@@ -12,7 +12,7 @@
 #ifndef Analyser_h
     #define Analyser_h
 
-    #include "Result.h"
+    #include "GenericResult.h"
     #include "Analysis.h"
     #include "../readers/UnigenReader.h"
     #include "../selection/ParticleSelector.h"
@@ -41,7 +41,7 @@
                  * @param threads number of threads to be used in parallelisation of the analysis (1 means no parallelisation, >1 is parallelised on given amount of threads), currently not implemented
                  * @return Result 
                  */
-                Result DoAnalysis(int threads = 1);
+                GenericResult DoAnalysis(int threads = 1);
 
             private:
                 /**
@@ -66,7 +66,7 @@
                 ParticleSelector fSelector;
                 UnigenEventCandidate fEvtCand;
                 Analysis fAnalysis;
-                Result fResult;
+                GenericResult fResult;
                 bool fDoNext;
         };
     }

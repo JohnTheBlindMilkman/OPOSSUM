@@ -13,32 +13,35 @@
     #define FemtoAnalysis_h
 
     #include "../Analysis.h"
-    #include "../Result.h"
+    #include "../GenericResult.h"
     #include "../../selection/EventCandidate.h"
 
-    class FemtoAnalysis : Analysis
+    namespace Opossum
     {
-        public:
-            /**
-             * @brief Default constructor
-             * 
-             */
-            FemtoAnalysis(/* args */);
-            /**
-             * @brief Destroy the Femto Analysis object
-             * 
-             */
-            ~FemtoAnalysis();
+        class FemtoAnalysis : public Analysis
+        {
+            public:
+                /**
+                 * @brief Default constructor
+                 * 
+                 */
+                FemtoAnalysis(/* args */);
+                /**
+                 * @brief Destroy the Femto Analysis object
+                 * 
+                 */
+                ~FemtoAnalysis();
 
-            /**
-             * @brief Perform femtoscopic analysis on the EventCandidate object. Override this method in your own implementation of the FemtoscopicAnalysis class.
-             * 
-             * @param evtCand 
-             * @return Result 
-             */
-            Result PerformAnalysis(const EventCandidate &evtCand);
+                /**
+                 * @brief Perform femtoscopic analysis on the EventCandidate object. Override this method in your own implementation of the FemtoscopicAnalysis class.
+                 * 
+                 * @param evtCand 
+                 * @return Result 
+                 */
+                GenericResult PerformAnalysis(const EventCandidate &evtCand);
 
-        private:
-    };
+            private:
+        };
+    }
     
 #endif

@@ -16,6 +16,7 @@ namespace Opossum
         this->fObservables[TrackObservable::X] = static_cast<float>(particle->GetPosition().X());
         this->fObservables[TrackObservable::Y] = static_cast<float>(particle->GetPosition().Y());
         this->fObservables[TrackObservable::Z] = static_cast<float>(particle->GetPosition().Z());
+        this->fObservables[TrackObservable::Time] = static_cast<float>(particle->GetPosition().T());
         this->fObservables[TrackObservable::Mass] = static_cast<float>(particle->GetPosition().M());
         this->fObservables[TrackObservable::Mass2] = static_cast<float>(particle->GetPosition().M2());
 

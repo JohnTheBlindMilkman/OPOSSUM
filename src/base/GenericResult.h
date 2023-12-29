@@ -1,7 +1,7 @@
 /**
  * @file Result.h
  * @author Jędrzej Kołaś (jedrzej.kolas.dokt@pw.edu.pl)
- * @brief Placeholder for the Result class which will hold the results of the Analysis.
+ * @brief Placeholder for the GenericResult class which will hold the results of the Analysis.
  * @version 0.1
  * @date 2023-10-26
  * 
@@ -15,11 +15,11 @@
     namespace Opossum
     {
         // To-Do: make it work as an container
-        class Result
+        class GenericResult
         {
             public:
-                Result();
-                ~Result() = default;
+                GenericResult();
+                ~GenericResult() = default;
         };
     }
 

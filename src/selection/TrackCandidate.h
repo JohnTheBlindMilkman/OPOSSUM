@@ -29,6 +29,13 @@
                  * 
                  */
                 virtual ~TrackCandidate() = default;
+                /**
+                 * @brief Get the desired Track Observable
+                 * 
+                 * @param obs 
+                 * @return std::variant<long int,float> 
+                 */
+                std::variant<long int,float> GetParticleObservable(const TrackObservable &obs);
         };
     }
 

@@ -1,4 +1,13 @@
 {
+    "eventCut":
+    [
+        {
+            "tag":"B",
+            "more_than":0.0,
+            "equal":null,
+            "less_than":2.5
+        }
+    ],
     "trackCut":
     [
         {
@@ -9,6 +18,18 @@
         },
         {
             "tag":"Px",
+            "more_than":0.0,
+            "equal":null,
+            "less_than":2.5
+        },
+        {
+            "tag":"Py",
+            "more_than":0.0,
+            "equal":null,
+            "less_than":2.5
+        },
+        {
+            "tag":"Pz",
             "more_than":0.0,
             "equal":null,
             "less_than":2.5

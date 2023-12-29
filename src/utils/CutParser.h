@@ -12,6 +12,7 @@
     #define CutParser_h
 
     #include <string>
+    #include <iostream>
 
     #include "../selection/ObservableList.h"
     #include "CutEntry.h"
@@ -44,7 +45,7 @@
                  * @param json - parsed selection.json file with key "eventCut", "trackCut" or "pairCut"
                  * @return std::unordered_map<EnumType,CutEntry> - map of cuts requested by the user
                  */
-                template <typename EnumType> std::unordered_map<EnumType,CutEntry> ConvertFromJson(nlohmann::json_abi_v3_11_2::json &json)
+                template <typename EnumType> std::unordered_map<EnumType,CutEntry> ConvertFromJson(nlohmann::json_abi_v3_11_2::json &json, const std::string &cutType)
                 {
                     std::unordered_map<EnumType,CutEntry> lut;
                     CutEntry element;
@@ -57,14 +58,20 @@
                     else if constexpr (std::is_same<EnumType,PairObservable>::value)
                         cutNameMapping = fPairLut;
                     else
-                        throw std::runtime_error("CutParser::ConvertFromJson - undefined cut type");
+                        throw std::runtime_error("CutParser::ConvertFromJson<> - undefined cut type");
 
                     for (const auto &entry : json)
                     {
                         element = entry.get<CutEntry>();
 
                         if (cutNameMapping.end() != cutNameMapping.find(element.tag))
+                        {
                             lut[cutNameMapping[element.tag]] = element;
+                        }
+                        else
+                        {
+                            std::cout << "CutParser::ConvertFromJson<> - Did not find entry for " << element.tag << " for " << cutType << "\n";
+                        }
                     }
 
                     return lut;

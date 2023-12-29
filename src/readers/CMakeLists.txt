@@ -1,6 +1,7 @@
 set(INCLUDES
 UEvent.h
 UParticle.h
+URun.h
 UnigenEventCandidate.h
 UnigenParticleCandidate.h
 UnigenReader.h
@@ -9,6 +10,7 @@ UnigenReader.h
 set(SOURCES
 UEvent.cxx
 UParticle.cxx
+URun.cxx
 UnigenEventCandidate.cxx
 UnigenParticleCandidate.cxx
 UnigenReader.cxx

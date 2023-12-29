@@ -38,8 +38,9 @@
                 /**
                  * @brief Initialise reader. Open files to be read.
                  * 
+                 * @return std::size_t number of entries
                  */
-                void InitReader();
+                std::size_t InitReader();
                 /**
                  * @brief Get the Next Event object. Return false if end of chain is reached, and true otherwise.
                  * 
