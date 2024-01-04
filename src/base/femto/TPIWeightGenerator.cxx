@@ -373,45 +373,61 @@ namespace Opossum
         auto pairIterator = FemtoConstants::pairMap.find(tPidPair);
         fPairType = (pairIterator == FemtoConstants::pairMap.end()) ? FemtoConstants::PairType::Unknown : (*pairIterator).second;
 
-        InitializeGamow();
-
-        if (tPidPair.first != tPidPair.second) // if not identical 
+        if (PairIsSuported(pair))
         {
-            if (fabs(fPionac) > 0.1) 
-            {
+            std::pair<TrackCandidate,TrackCandidate> tracks = pair.GetTracks();
+            std::pair<long int,long int> tPidPair(std::get<long int>(tracks.first[TrackObservable::PID]),std::get<long int>(tracks.second[TrackObservable::PID]));
+            fPairType = FemtoConstants::pairMap.at(tPidPair);
 
-                if (fabs(fD0s.real()) > 0.00001)
-                    tWeight = GetCoulombStrong();
-                else
-                    tWeight = GetCoulomb();
+            InitializeGamow();
+            PairKinematics(pair);
+
+            if (tPidPair.first != tPidPair.second) // if not identical 
+            {
+                if (fabs(fPionac) > 0.1) 
+                {
+
+                    if (fabs(fD0s.real()) > 0.00001)
+                        tWeight = GetCoulombStrong();
+                    else
+                        tWeight = GetCoulomb();
+                } 
+                else 
+                {
+                    tWeight = GetStrong();
+                    if (std::isnan(tWeight) == 1) 
+                        return 1;
+                }
             } 
             else 
             {
-                tWeight = GetStrong();
-                if (std::isnan(tWeight) == 1) 
-                    return 1;
-            }
-        } 
-        else 
-        {
-            if (fPairType == FemtoConstants::PairType::PionZeroPionZero) 
-            { 
-                return GetQuantum(); 
-            }
-            if (fabs(fPionac) > 0.1) 
-            {
-                if (fPairType != FemtoConstants::PairType::ProtonProton)
-                    tWeight = GetQuantumCoulomb();
-                else
-                    tWeight = GetQuantumCoulombStrong();
-            } 
-            else 
-            {
-                tWeight = GetQuantumStrong();
+                if (fPairType == FemtoConstants::PairType::PionZeroPionZero) 
+                { 
+                    return GetQuantum(); 
+                }
+                if (fabs(fPionac) > 0.1) 
+                {
+                    if (fPairType != FemtoConstants::PairType::ProtonProton)
+                        tWeight = GetQuantumCoulomb();
+                    else
+                        tWeight = GetQuantumCoulombStrong();
+                } 
+                else 
+                {
+                    tWeight = GetQuantumStrong();
+                }
             }
         }
 
         return tWeight;
+    }
+
+    bool TPIWeightGenerator::PairIsSuported(const PairCandidate &pair) const
+    {
+        std::pair<TrackCandidate,TrackCandidate> tracks = pair.GetTracks();
+        std::pair<long int,long int> tPidPair(std::get<long int>(tracks.first[TrackObservable::PID]),std::get<long int>(tracks.second[TrackObservable::PID]));
+        auto pairIterator = FemtoConstants::pairMap.find(tPidPair);
+        return (pairIterator == FemtoConstants::pairMap.end()) ? false : true;
     }
 
     double TPIWeightGenerator::Gamow(double arg) const 
@@ -462,21 +478,21 @@ namespace Opossum
             //      std::cout << "as1 " << asym << std::endl;
             asym = sqrt(asym);
             if (asym < 1.0)
-                asym = 1.0 + (asym - 1.0) * 2.0;
+                ffminus.real(1.0 + (asym - 1.0) * 2.0);
             else
-                asym = 1.0 + (asym - 1.0) / 2.0;
+                ffminus.real(1.0 + (asym - 1.0) / 2.0);
 
-            ffminus = {asym,sqrt(asym * asym - ffminus.real() * ffminus.real())};
+            ffminus.imag(sqrt(asym * asym - ffminus.real() * ffminus.real()));
 
             asym = (1.0 - 1.0 / (fRStarS * (1.0 + tKstRst / rho) * fPionac * kstar * kstar)) / Gamow(kstar);
             //      std::cout << "as2 " << asym << std::endl;
             asym = sqrt(asym);
             if (asym < 1.0)
-                asym = 1.0 + (asym - 1.0) * 2.0;
+                ffplus.real(1.0 + (asym - 1.0) * 2.0);
             else
-                asym = 1.0 + (asym - 1.0) / 2.0;
+                ffplus.real(1.0 + (asym - 1.0) / 2.0);
 
-            ffplus = {asym,sqrt(asym * asym - ffplus.real() * ffplus.real())};
+            ffplus.imag(sqrt(asym * asym - ffplus.real() * ffplus.real()));
         }
         // Check for the classical limit in both functions separately
         else if (((testp < 15.0) && (testm < 15.0)))  // ||
@@ -495,11 +511,11 @@ namespace Opossum
                 asym = (1.0 - 1.0 / (fRStarS * (1.0 - tKstRst / (rho) *fPionac * kstar * kstar))) / Gamow(kstar);
                 asym = sqrt(asym);
                 if (asym < 1.0)
-                    asym = 1.0 + (asym - 1.0) * 2.0;
+                    ffminus.real(1.0 + (asym - 1.0) * 2.0);
                 else
-                    asym = 1.0 + (asym - 1.0) / 2.0;
+                    ffminus.real(1.0 + (asym - 1.0) / 2.0);
 
-                ffminus = {asym,sqrt(asym * asym - ffminus.real() * ffminus.real())};
+                ffminus.imag(sqrt(asym * asym - ffminus.real() * ffminus.real()));
             }
             ccase = 2;
         }
@@ -513,11 +529,11 @@ namespace Opossum
                 asym = (1.0 - 1.0 / (fRStarS * (1.0 + tKstRst / (rho) *fPionac * kstar * kstar))) / Gamow(kstar);
                 asym = sqrt(asym);
                 if (asym < 1.0)
-                    asym = 1.0 + (asym - 1.0) * 2.0;
+                    ffplus.real(1.0 + (asym - 1.0) * 2.0);
                 else
-                    asym = 1.0 + (asym - 1.0) / 2.0;
+                    ffplus.real(1.0 + (asym - 1.0) / 2.0);
 
-                ffplus = {asym,sqrt(asym * asym - ffplus.real() * ffplus.real())};
+                ffplus.imag(sqrt(asym * asym - ffplus.real() * ffplus.real()));
             }
             ccase = 3;
         }
@@ -628,10 +644,11 @@ namespace Opossum
             asym = (1.0 - 1.0 / (fRStarS * (1.0 + tKstRst / rho) * fPionac * kstar * kstar)) / Gamow(kstar);
             asym = sqrt(asym);
             if (asym < 1.0)
-                asym = 1.0 + (asym - 1.0) * 2.0;
+                ffplus.real(1.0 + (asym - 1.0) * 2.0);
             else
-                asym = 1.0 + (asym - 1.0) / 2.0;
-            ffplus = {asym,sqrt(asym * asym - ffplus.real() * ffplus.real())};
+                ffplus.real(1.0 + (asym - 1.0) / 2.0);
+
+            ffplus.imag(sqrt(asym * asym - ffplus.real() * ffplus.real()));
         } 
         else
         {
@@ -934,7 +951,7 @@ namespace Opossum
 
     double TPIWeightGenerator::GetQuantum() 
     {
-        double quantumweight;
+        double quantumweight = 0;
 
         if (fTwospin == 0) 
         {
@@ -1168,6 +1185,8 @@ namespace Opossum
                 asym = 1.0 + (asym - 1.0) * 2.0;
             else
                 asym = 1.0 + (asym - 1.0) / 2.0;
+
+            ffminus.real(asym);
             ffminus = {asym,sqrt(asym * asym - ffminus.real() * ffminus.real())};
             ccase      = 2;
         } 
@@ -1182,6 +1201,8 @@ namespace Opossum
                 asym = 1.0 + (asym - 1.0) * 2.0;
             else
                 asym = 1.0 + (asym - 1.0) / 2.0;
+
+            ffplus.real(asym);
             ffplus = {asym,sqrt(asym * asym - ffplus.real() * ffplus.real())};
             ccase = 3;
         }
@@ -1368,7 +1389,7 @@ namespace Opossum
             scompp = scompp * zetp;
             tcomp *= (istep + 1);
 
-            if ((sump.real() * sump.real() + sump.imag() * sump.imag()) < 1.0e-14) 
+            if ((sump.real() * sump.real() + sump.imag() * sump.imag()) < 1.0e-14) // another arbitrary small number (at lest be consistent for God's sake) - JJ
             {
                 nsteps = istep;
                 break;

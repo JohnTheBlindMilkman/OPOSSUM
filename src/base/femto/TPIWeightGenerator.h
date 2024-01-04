@@ -73,7 +73,7 @@
                 std::complex<long double> fD0s, fF0s, fD0t, fF0t;
                 long double fPionac, fOneoveracsq, fTwopioverac, fCoulqscpart, fEuler, fF0, fD0;
                 int fTwospin, fWritegrps, fPcount, fCoulombSteps;
-                double fRStarOutS, fRStarSideS, fRStarLongS, fRStarS, fRStarLong, fRStarOut, fRStarSide, fRStar, fKStarLong, fKStarOut, fKStarSide, fKStar;
+                double fRStarOutS, fRStarSideS, fRStarLongS, fRStarS, fRStarOut, fRStarSide, fRStarLong, fRStar, fKStarOut, fKStarSide, fKStarLong, fKStar;
 
             public:
                 /**
@@ -93,6 +93,14 @@
                  * @return double 
                  */
                 double CalculateWeight(const PairCandidate &pair) override;
+                /**
+                 * @brief Check if given pair combination is suported by the TPI generator
+                 * 
+                 * @param pair 
+                 * @return true 
+                 * @return false 
+                 */
+                bool PairIsSuported(const PairCandidate &pair) const override;
         };
 
         inline long double TPIWeightGenerator::Chiim(long double eta) const { return Gamow(1.0 / (eta * fPionac)) / (2.0 * eta); }

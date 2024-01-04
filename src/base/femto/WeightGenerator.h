@@ -37,6 +37,13 @@
                  * @return double weight
                  */
                 virtual double CalculateWeight(const PairCandidate &) {return 0.0;}
+                /**
+                 * @brief Check if given pair combination is suported by the generator (placeholder method)
+                 * 
+                 * @return true 
+                 * @return false 
+                 */
+                virtual bool PairIsSuported(const PairCandidate &) const {return false;}
         };
     }
 
