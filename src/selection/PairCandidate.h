@@ -45,7 +45,7 @@
                  * @param particle1 
                  * @param particle2 
                  */
-                PairCandidate(TrackCandidate &particle1, TrackCandidate &particle2);
+                PairCandidate(const TrackCandidate &particle1, const TrackCandidate &particle2);
                 /**
                  * @brief Destroy the Pair Candidate object
                  * 

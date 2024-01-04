@@ -14,7 +14,11 @@
 
     #include "../Analysis.h"
     #include "../GenericResult.h"
+    #include "../EventMixer.h"
     #include "../../selection/EventCandidate.h"
+    #include "../femto/CF1D.h"
+    #include "../femto/TPIWeightGenerator.h"
+    #include "../femto/LCMS.h"
 
     namespace Opossum
     {
@@ -31,7 +35,11 @@
                  * 
                  */
                 ~FemtoAnalysis();
-
+                /**
+                 * @brief Initialise the femtoscopic analysis object. Override this method in your own implementation of the FemtoscopicAnalysis class.
+                 * 
+                 */
+                void InitAnalysis() const;
                 /**
                  * @brief Perform femtoscopic analysis on the EventCandidate object. Override this method in your own implementation of the FemtoscopicAnalysis class.
                  * 
@@ -39,8 +47,16 @@
                  * @return Result 
                  */
                 GenericResult PerformAnalysis(const EventCandidate &evtCand);
+                /**
+                 * @brief Finish/close any femtoscopic-analysis-related objects and proceses. Override this method in your own implementation of the FemtoscopicAnalysis class.
+                 * 
+                 */
+                void FinishAnalysis() const;
 
             private:
+                EventMixer fEvtMixer;
+                CF1D<LCMS> fCorrFunc1D;
+                TPIWeightGenerator fWeightGen;
         };
     }
     

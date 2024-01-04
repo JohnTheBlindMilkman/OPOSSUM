@@ -2,7 +2,7 @@
 
 namespace Opossum
 {
-    PairCandidate::PairCandidate(TrackCandidate &particle1, TrackCandidate &particle2) : fTrack1(particle1), fTrack2(particle2)
+    PairCandidate::PairCandidate(const TrackCandidate &particle1, const TrackCandidate &particle2) : fTrack1(particle1), fTrack2(particle2)
     {
         this->fObservables[PairObservable::AzimimuthalAngle] = (std::get<float>(fTrack1.GetParticleObservable(TrackObservable::AzimimuthalAngle)) + std::get<float>(fTrack2.GetParticleObservable(TrackObservable::AzimimuthalAngle))) / 2;
         this->fObservables[PairObservable::kT] = (std::get<float>(fTrack1.GetParticleObservable(TrackObservable::TransverseMomentum)) + std::get<float>(fTrack2.GetParticleObservable(TrackObservable::TransverseMomentum))) / 2;

@@ -31,12 +31,22 @@
                  */
                 virtual ~Analysis() = default;
                 /**
+                 * @brief Initialise the analysis object
+                 * 
+                 */
+                void InitAnalysis() const {}
+                /**
                  * @brief Perform analysis on the EventCandidate object. Override this method in your own implementation of the Analysis class.
                  * 
                  * @param evtCand 
                  * @return Result 
                  */
                 GenericResult PerformAnalysis(const EventCandidate &evtCand) {return GenericResult();};
+                /**
+                 * @brief Finish/close any analysis-related objects and proceses
+                 * 
+                 */
+                void FinishAnalysis() const {}
         };
     } // namespace Opossum
 

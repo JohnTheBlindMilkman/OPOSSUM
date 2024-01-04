@@ -362,7 +362,7 @@ namespace Opossum
         fRStar = ::sqrt(fRStarOut * fRStarOut + fRStarSide * fRStarSide + fRStarLong * fRStarLong);
         fKStar = ::sqrt(fKStarOut * fKStarOut + fKStarSide * fKStarSide + fKStarLong * fKStarLong);
         if (fKStarOut < 0) fKStar = -fKStar;
-        fRStarS = fRStar / FemtoConstants::gevToFm;
+        fRStarS = fRStar / FemtoConstants::gevToFm;        
     }
 
     double TPIWeightGenerator::CalculateWeight(const PairCandidate &pair) 

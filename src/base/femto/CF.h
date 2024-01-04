@@ -17,25 +17,27 @@
 
     namespace Opossum
     {
-        struct has_calculate_momentum_impl 
+        // I wanted to make sure the user knows the reference frame has to have this method - JJ
+       /*  struct has_calculate_momentum_impl 
         {
-            template<typename T, typename Begin = decltype(std::declval<const T&>().CalculateMomentum())>
+            template<typename T, typename Method = decltype(std::declval<const T&>().CalculateMomentum())>
             static std::true_type test(int);
             template<typename...>
             static std::false_type test(...);
         };
 
         template<typename T>
-        struct has_calculate_momentum : decltype(has_calculate_momentum_impl::test<T>(0)) {};
+        struct has_calculate_momentum : decltype(has_calculate_momentum_impl::test<T>(0)) {}; */
 
         template <typename T>
         class CF
         {
-            static_assert(has_calculate_momentum<T>::value,"CF<T> - template class T does not contain CalculateMomentum() method");
+            //static_assert(has_calculate_momentum<T>::value,"CF<T> - template class T does not contain CalculateMomentum() method");
 
             private:
-                std::function<PairCandidate(const PairCandidate&)> fCorrectionFunction;
-                T fFrameOfReference;
+
+            protected:
+                
 
             public:
                 /**
@@ -62,6 +64,9 @@
                  * @param weight femtoscopic weight calculated in the WeightGenerator class implementations
                  */
                 virtual void AddPair(const PairCandidate &pair, const double &weight) {}
+
+                std::function<PairCandidate(const PairCandidate&)> fCorrectionFunction;
+                T fFrameOfReference;
         };
     } // namespace Opossum
 

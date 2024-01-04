@@ -27,26 +27,36 @@
                  * @brief Construct a new CF1D object
                  * 
                  */
-                CF1D();
+                CF1D() : fCFHistogram("CF1D","",300,0,3.0) 
+                {
+                    CF<T>::fCorrectionFunction = [](const PairCandidate &pair){return pair;};
+                }
                 /**
                  * @brief Destroy the CF1D object
                  * 
                  */
-                ~CF1D();
+                ~CF1D() {}
                 /**
                  * @brief Apply desired correction for each PairCandidate object contained within the correlation function
                  * 
                  * @param correctionFunction any std::function castable object (function, lambda expression or bind expression)
                  * @exception std::bad_funtion_call If std::function contains no taget
                  */
-                void ApplyCorrection(std::function<PairCandidate(const PairCandidate&)> &&correctionFunction) override;
+                void ApplyCorrection(std::function<PairCandidate(const PairCandidate&)> &&correctionFunction) override
+                {
+                    CF<T>::fCorrectionFunction = std::move(correctionFunction);
+                }
                 /**
                  * @brief Fill histogram with given PairCandidate object
                  * 
                  * @param pair PairCandidate
                  * @param weight femtoscopic weight calculated in the WeightGenerator class implementations
                  */
-                void AddPair(const PairCandidate &pair, const double &weight) override;
+                void AddPair(const PairCandidate &pair, const double &weight) override
+                {
+                    CF<T>::fFrameOfReference.Calculate(CF<T>::fCorrectionFunction(pair));
+                    fCFHistogram.Fill(std::get<3>(CF<T>::fFrameOfReference.Get4Momentum()),weight);
+                }
         };
 
     } // namespace Opossum

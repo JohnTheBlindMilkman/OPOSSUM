@@ -32,16 +32,15 @@
                  * @param treeName The name of the TTree inside input .root files
                  * @param nFiles Number of input .root files to be analysed
                  */
-                Analyser(const Analysis analysis, const ParticleSelector &selector, const TString &inpDirPath, const TString &treeName, const int &nFiles);
+                Analyser(const Analysis &analysis, const ParticleSelector &selector, const TString &inpDirPath, const TString &treeName, const int &nFiles);
                 virtual ~Analyser() = default;
 
                 /**
                  * @brief Perform the chosen analysis process (defined by the constructor parameters)
                  * 
                  * @param threads number of threads to be used in parallelisation of the analysis (1 means no parallelisation, >1 is parallelised on given amount of threads), currently not implemented
-                 * @return Result 
                  */
-                GenericResult DoAnalysis(int threads = 1);
+                void DoAnalysis(int threads = 1);
 
             private:
                 /**

@@ -2,13 +2,14 @@
 
 namespace Opossum
 {
-    Analyser::Analyser(const Analysis analysis, const ParticleSelector &selector, const TString &inpDirPath, const TString &treeName, const int &nFiles) : fReader(inpDirPath,treeName,nFiles), fSelector(selector), fAnalysis(analysis), fDoNext(false)
+    Analyser::Analyser(const Analysis &analysis, const ParticleSelector &selector, const TString &inpDirPath, const TString &treeName, const int &nFiles) : fReader(inpDirPath,treeName,nFiles), fSelector(selector), fAnalysis(analysis), fDoNext(false)
     {
     }
 
     void Analyser::Init()
     {
         fReader.InitReader();
+        fAnalysis.InitAnalysis();
     }
 
     bool Analyser::Next()
@@ -28,15 +29,14 @@ namespace Opossum
 
     void Analyser::Finish()
     {
+        fAnalysis.FinishAnalysis();
         fReader.CloseReader();
     }
 
-    GenericResult Analyser::DoAnalysis(int threads)
+    void Analyser::DoAnalysis(int threads)
     {
         this->Init();
         while (this->Next());
         this->Finish();
-
-        return fResult;
     }
 }
